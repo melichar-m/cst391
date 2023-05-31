@@ -5,12 +5,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ShopComponent } from './shop/shop.component';
 import { InfoComponent } from './info/info.component';
+import { ListArtistsComponent } from './list-artists/list-artists.component';
+import { ListAlbumsComponent } from './list-albums/list-albums.component';
+import { DisplayAlbumComponent } from './display-album/display-album.component';
+import { EditAlbumComponent } from './edit-album/edit-album.component';
+import { DeleteAlbumComponent } from './delete-album/delete-album.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ShopComponent,
-    InfoComponent
+    InfoComponent,
+    ListArtistsComponent,
+    ListAlbumsComponent,
+    DisplayAlbumComponent,
+    EditAlbumComponent,
+    DeleteAlbumComponent
   ],
   imports: [
     BrowserModule,

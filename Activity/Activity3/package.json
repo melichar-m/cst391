@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@angular/core": "^16.0.3",
+    "@angular/router": "^16.0.3"
+  }
+}

@@ -8,10 +8,10 @@ const initializeMySqlConnector = () => {
     pool = createPool({
       connectionLimit: parseInt(process.env.MYSQL_CONNECTION_LIMIT != undefined ? process.env.MYSQL_CONNECTION_LIMIT : ""),
       port: parseInt(process.env.MYSQL_PORT != undefined ? process.env.MYSQL_PORT : ""),
-      host: process.env.MY_SQL_DB_HOST,
-      user: process.env.MY_SQL_DB_USER,
-      password: process.env.MY_SQL_DB_PASSWORD,
-      database: process.env.MY_SQL_DB_DATABASE,
+      host: '127.0.0.1',
+      user: 'root',
+      password: '',
+      database: 'music',
     });
 
     console.debug('MySql Adapter pool generated successfully');
