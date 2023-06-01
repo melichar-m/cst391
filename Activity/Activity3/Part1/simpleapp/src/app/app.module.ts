@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ShopComponent } from './shop/shop.component';
@@ -10,6 +10,8 @@ import { ListAlbumsComponent } from './list-albums/list-albums.component';
 import { DisplayAlbumComponent } from './display-album/display-album.component';
 import { EditAlbumComponent } from './edit-album/edit-album.component';
 import { DeleteAlbumComponent } from './delete-album/delete-album.component';
+import { FormsModule } from '@angular/forms';
+import { CreateAlbumComponent } from './create-album/create-album.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { DeleteAlbumComponent } from './delete-album/delete-album.component';
     ListAlbumsComponent,
     DisplayAlbumComponent,
     EditAlbumComponent,
-    DeleteAlbumComponent
+    DeleteAlbumComponent,
+    CreateAlbumComponent
   ],
   imports: [
     BrowserModule,

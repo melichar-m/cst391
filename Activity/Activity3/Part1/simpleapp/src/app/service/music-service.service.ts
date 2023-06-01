@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import exampledata from '../data/sample-music-data.json';
+import exampledata from 'C:\\Users\\Micha\\Documents\\cst391\\Activity\\Activity3\\Part1\\simpleapp\\src\\data\\sample-music-data.json';
 import { Artist } from './../models/artists.model';
 import { Album } from '../models/albums.model';
 
