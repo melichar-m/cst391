@@ -13,10 +13,11 @@ import { Artist } from '../models/artists.model';
 export class ListArtistsComponent implements OnInit{
   ngOnInit()
   {
-      this.route.queryParams.subscribe(params => {
-      console.log("Getting data....");
-      this.artists = this.service.getArtists();
-    });
+      console.log("Getting data...");
+      this.service.getArtists((artists: Artist[]) => {
+        this.artists = artists;
+        console.log('this.artists: ', this.artists);
+      });
   }
 
   selectedArtist: Artist = {} as Artist;

@@ -2,20 +2,19 @@ import { Injectable } from '@angular/core';
 import exampledata from 'C:\\Users\\Micha\\Documents\\cst391\\Activity\\Activity3\\Part1\\simpleapp\\src\\data\\sample-music-data.json';
 import { Artist } from './../models/artists.model';
 import { Album } from '../models/albums.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class MusicServiceService {
-
+  private host = 'http://localhost:3000/'
+  constructor(private http: HttpClient) { }
   albums: Album[] = exampledata;
 
-  public getArtists(): Artist[] {
-    let artists: Artist[] = [];
-    let artistSet = new Set<string>();
-
-    this.albums.forEach(a => artistSet.add(a.artist));
-
-    artistSet.forEach(a => artists.push({artist: a}))
-    return artists;
+  public getArtists(callback: (artists: Artist[]) => void): void {
+    // Make an HTTP request to retrieve the list of Artists
+    this.http.get<Artist[]>(this.host + 'artists').subscribe((artists: Artist[]) => {
+      callback(artists);
+    });
   }
 
   public getAlbums(): Album[] {

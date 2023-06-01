@@ -12,6 +12,7 @@ import { EditAlbumComponent } from './edit-album/edit-album.component';
 import { DeleteAlbumComponent } from './delete-album/delete-album.component';
 import { FormsModule } from '@angular/forms';
 import { CreateAlbumComponent } from './create-album/create-album.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,9 +30,12 @@ import { CreateAlbumComponent } from './create-album/create-album.component';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor(private http: HttpClient) { }
+}
