@@ -16,7 +16,9 @@ export class ListAlbumsComponent {
   selectedAlbum: Album | null = null;
 
   ngOnInit() {
-    this.albums = this.musicService.getAlbums();
+    this.musicService.getAlbums((albums: Album[]) => {
+      this.albums = albums;
+    });    
   }
   public onSelectAlbum(album: Album)
   {

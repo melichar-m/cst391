@@ -1,66 +1,79 @@
 import { Injectable } from '@angular/core';
-import exampledata from 'C:\\Users\\Micha\\Documents\\cst391\\Activity\\Activity3\\Part1\\simpleapp\\src\\data\\sample-music-data.json';
-import { Artist } from './../models/artists.model';
-import { Album } from '../models/albums.model';
+import exampledata from '../../data/sample-music-data.json'
 import { HttpClient } from '@angular/common/http';
+import { Artist } from '../models/artists.model';
+import { Album } from '../models/albums.model';
 
 @Injectable({ providedIn: 'root' })
 export class MusicServiceService {
-  private host = 'http://localhost:3000/'
-  constructor(private http: HttpClient) { }
+  private host = 'http://localhost:3000/';
+
   albums: Album[] = exampledata;
 
+  constructor(private http: HttpClient) {}
+
   public getArtists(callback: (artists: Artist[]) => void): void {
-    // Make an HTTP request to retrieve the list of Artists
-    this.http.get<Artist[]>(this.host + 'artists').subscribe((artists: Artist[]) => {
-      callback(artists);
-    });
-  }
-
-  public getAlbums(): Album[] {
-    // Return the list of Albums
-    return this.albums;
-  }
-
-  public getAlbumsOfArtist(artistName: String): Album[] {
-
-    let albums: Album[] = [];
-
-
-    this.albums.forEach(album => {
-      if (album.artist == artistName) {
-        albums.push(album);
+    this.http.get<Artist[]>(this.host + "/artists").
+      subscribe((artists: Artist[]) => {
+        callback(artists);
+      },
+      (error) => {
+        console.log('Error fetching artists:', error);
       }
-    });
-    return albums;
-
+    );
   }
 
-  public createAlbum(album: Album): number {
-    // Add a new Album to the list of Albums
-    this.albums.push(album);
-    return 1;
-  }
-
-  public updateAlbum(album: Album): number {
-    // Search for the Album in the list of Albums and replace it in the list
-    for (let i = 0; i < this.albums.length; ++i) {
-      if (this.albums[i].albumId == album.albumId) {
-        this.albums.splice(i, 1, album);
-        return 0;
+  public getAlbums(callback: (albums: Album[]) => void): void {
+    this.http.get<Album[]>(this.host + "/albums").
+      subscribe((albums: Album[]) => {
+        callback(albums);
+      },
+      (error) => {
+        console.log('Error fetching albums:', error);
       }
-    }
-    return -1;
+    );
   }
 
-  public deleteAlbum(id: number): number {
-    // Search for the Album in the list of Albums and delete from the list
-    for (let i = 0; i < this.albums.length; ++i) {
-      if (this.albums[i].albumId == id) {
-        this.albums.splice(i, 1);
-        return 0;
+  public getAlbumsOfArtist(artistName: string, callback: (albums: Album[]) => void): void {
+    let request = this.host + `/albums/${artistName}`
+    console.log('request', request);
+    this.http.get<Album[]>(this.host + `/artists/${artistName}/albums`).
+      subscribe((albums: Album[]) => {
+        callback(albums);
+      },
+      (error) => {
+        console.log('Error fetching albums of artist:', error);
       }
-    }
-    return -1;
+    );
+  }
+
+  public createAlbum(album: Album, callback: () => void): void {
+    this.http.post<Album>(this.host + "/albums", album)
+      .subscribe((data) => {
+          callback();
+        });
+  }
+  
+
+  public updateAlbum(album: Album, callback: () => void): void {
+    this.http.put(this.host + `/albums/${album.albumId}`, album).
+      subscribe(
+      () => {
+        callback();
+      }
+    );
+  }
+
+  public deleteAlbum(albumId: number, callback: () => void): void {
+    this.http.delete(this.host + `/albums/${albumId}`).
+      subscribe(
+      () => {
+        callback();
+      },
+      (error) => {
+        console.log('Error deleting album:', error);
+        callback();
+      }
+    );
   }
 }
