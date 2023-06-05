@@ -7,16 +7,15 @@ import { Album } from './../models/albums.model';
   selector: 'app-list-albums',
   templateUrl: './list-albums.component.html',
   styleUrls: ['./list-albums.component.css'],
-  
 })
 export class ListAlbumsComponent {
   @Input() artist: Artist = {} as Artist;
   albums: Album[] = [];
-  constructor(private musicService: MusicServiceService) {}
+  constructor(private service: MusicServiceService) {}
   selectedAlbum: Album | null = null;
 
   ngOnInit() {
-    this.musicService.getAlbums((albums: Album[]) => {
+    this.service.getAlbums((albums: Album[]) => {
       this.albums = albums;
     });    
   }
